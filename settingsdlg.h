@@ -4,6 +4,10 @@
 #include <QDialog>
 #include <ftpclient.h>
 
+#include <QtSql/QSqlDatabase>
+#include <QtSql/QSqlQuery>
+#include <QtSql/QSqlError>
+
 namespace Ui {
 class SettingsDlg;
 }
@@ -14,6 +18,7 @@ class SettingsDlg : public QDialog
 
 public slots:
     void DownloadStockFile();
+    void SavetoDatabase();
 
 public:
     explicit SettingsDlg(QWidget *parent = 0);

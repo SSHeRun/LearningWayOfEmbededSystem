@@ -11,10 +11,11 @@ PriceDialog::PriceDialog(QWidget *parent) :
     ui(new Ui::PriceDialog)
 {
     ui->setupUi(this);
+    /*
     ui->comboBox->addItem("600000");
     ui->comboBox->addItem("600004");
     ui->comboBox->addItem("600006");
-
+*/
     connect(ui->pushButton,SIGNAL(clicked()),this,SLOT(ShowPrice()));
 
     ValidDayNum = -1;
@@ -25,12 +26,32 @@ PriceDialog::~PriceDialog()
     delete ui;
 }
 
+void PriceDialog::LoadDataFormDatabase()
+{
+    QString select_all_sql="select * from stockinfo";
+    QSqlQuery sql_query;
+    sql_query.prepare(select_all_sql);
+
+    if(sql_query.exec())
+    {
+        while(sql_query.next())
+        {
+            int id = sql_query.value(0).toInt();
+            QString name = sql_query.value(1).toString();
+
+            ui->comboBox->addItem(name);
+        }
+    }
+    sql_query.clear();
+}
+
 void PriceDialog::ShowPrice()
 {
     this->showMaximized();
     QString code = ui->comboBox->currentText();
     ReadDataFromFile(code);
-    this->repaint();
+    update();
+//    this->repaint();
 }
 bool PriceDialog::ReadDataFromFile(QString code)
 {

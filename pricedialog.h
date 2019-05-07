@@ -3,6 +3,13 @@
 
 #include <QDialog>
 
+#include <QtSql/QSqlDatabase>
+#include <QtSql/QSqlQuery>
+#include <QtSql/QSqlError>
+#include <QSqlDatabase>
+#include <QSqlQuery>
+#include <QSqlError>
+
 namespace Ui {
 class PriceDialog;
 }
@@ -16,6 +23,7 @@ public:
     explicit PriceDialog(QWidget *parent = 0);
     ~PriceDialog();
     void paintEvent(QPaintEvent * p);
+    void LoadDataFormDatabase();//add DB function
 private:
     bool ReadDataFromFile(QString code);
     float StockPriceVolume[100][7];
